@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Widget Transparan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: transparent; /* Background halaman utama transparan */
+        }
+        .widget {
+            background: transparent; /* Background widget transparan */
+            padding: 12px 22px; /* Padding sedikit diperbesar */
+            border-radius: 15px;
+            border: none; /* Hilangkan border */
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            width: auto;
+        }
+        .greeting {
+            font-family: 'Pinyon Script', cursive;
+            font-size: 1.7em; /* Ukuran font disesuaikan */
+            margin: 0 18px;
+            color: #BFA88D; /* Warna teks tetap */
+            font-style: italic;
+        }
+        .date {
+            font-family: 'Georgia', serif;
+            font-size: 1.2em; /* Ukuran font diperbesar sedikit */
+            margin: 0 18px;
+            color: #BFA88D; /* Warna teks tetap */
+            font-style: italic;
+        }
+        .time {
+            font-family: 'Georgia', serif;
+            font-size: 1.5em; /* Ukuran font disesuaikan */
+            margin: 0 18px;
+            color: #BFA88D; /* Warna teks tetap */
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="widget">
+        <div class="greeting"></div>
+        <div class="date"></div>
+        <div class="time"></div>
+    </div>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+
+            let greetingText = '';
+            if (hours >= 3 && hours < 11 || (hours == 11 && minutes < 30)) {
+                greetingText = 'Selamat Pagi!';
+            } else if ((hours == 11 && minutes >= 30) || (hours >= 12 && hours < 15) || (hours == 15 && minutes < 30)) {
+                greetingText = 'Selamat Siang!';
+            } else if ((hours == 15 && minutes >= 30) || (hours >= 16 && hours < 19)) {
+                greetingText = 'Selamat Sore!';
+            } else {
+                greetingText = 'Selamat Malam!';
+            }
+
+            const date = now.toLocaleDateString('id-ID', {
+                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+            });
+
+            document.querySelector('.greeting').textContent = greetingText;
+            document.querySelector('.date').textContent = date;
+            document.querySelector('.time').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html>
